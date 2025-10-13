@@ -1,0 +1,6 @@
+{
+    "buildCommand": "cd apps/throne && npm run build",
+    "outputDirectory": "apps/throne/.next",
+    "installCommand": "npm install",
+    "devCommand": "npm run dev"
+}
