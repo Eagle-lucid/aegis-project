@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+  variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
@@ -20,16 +20,16 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Aegis - The Throne Command System",
   description: "Not a dashboard. A throne for leadership, strategy, and sovereignty.",
-  icons: {
-    icon: "/favicon.ico",
-  },
-  keywords: ["aegis", "throne", "command", "system", "leadership", "strategy", "sovereignty"],
-  authors: [{ name: "Aegis", url: "https://aegis.com" }],
-  creator: "Aegis",
-  publisher: "Aegis",
-  openGraph: {
-    title: "Aegis - The Throne Command System",
-  }
+  // icons: {
+    // icon: "/favicon.ico",
+  // },
+  // keywords: ["aegis", "throne", "command", "system", "leadership", "strategy", "sovereignty"],
+  // authors: [{ name: "Aegis", url: "https://aegis.com" }],
+  // creator: "Aegis",
+  // publisher: "Aegis",
+  // openGraph: {
+    // title: "Aegis - The Throne Command System",
+  // }
 };
 
 export default function RootLayout({
