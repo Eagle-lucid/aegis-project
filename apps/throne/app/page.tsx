@@ -1,9 +1,9 @@
 // apps/throne/app/page.tsx
 import { GlassLayout } from "@/components/layouts/GlassLayout";
-import { SentinelPanel } from "@/components/panels/SentinelPanel";
-import { TreasuryPanel } from "@/components/panels/TreasuryPanel";
-import { CommandPanel } from "@/components/panels/CommandPanel";
-import { ChroniclePanel } from "@/components/panels/ChroniclePanel";
+import { SentinelPanel } from "@/components/panel/SentinelPanel";
+import { TreasuryPanel } from "@/components/panel/TreasuryPanel";
+import { CommandPanel } from "@/components/panel/CommandPanel";
+import { ChroniclePanel } from "@/components/panel/ChroniclePanel";
 
 export default function ThronePage() {
     return (

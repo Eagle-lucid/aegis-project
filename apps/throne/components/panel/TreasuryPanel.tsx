@@ -3,8 +3,8 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 
 export function TreasuryPanel() {
     return (
-        <GlassPanel>
-            <h2 className="text-xl font-bold text-white mb-4">
+        <GlassPanel className="border-throne-emerald-500/30">
+            <h2 className="text-xl font-bold text-throne-emerald-400 mb-4">
                 Treasury Health
             </h2>
 
