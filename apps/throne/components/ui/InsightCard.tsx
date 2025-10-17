@@ -39,10 +39,10 @@ export function InsightCard({ icon, title, description, severity }: InsightCardP
 
                 {/* Content */}
                 <div className='flex-1'>
-                    <h3 className={`font-display font-semibold mb-1 ${severityTextColors[severity]}`}>
+                    <h3 className={`font-[family-name:var(--font-display)] font-semibold mb-1 ${severityTextColors[severity]}`}>
                         {title}
                     </h3>
-                    <p className='text-sm text-gray-400 leading-relaxed'>
+                    <p className='font-[family-name:var(--font-inter)] text-sm text-gray-400 leading-relaxed'>
                         {description}
                     </p>
                 </div>

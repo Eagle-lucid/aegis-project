@@ -7,10 +7,10 @@ export function SentinelPanel() {
         <GlassPanel className="border-throne-cyan-500/30">
             {/* Header */}
             <div className='mb-6'>
-                <h2 className="text-2xl font-display font-bold text-throne-cyan-400 mb-2">
+                <h2 className="text-2xl font-[family-name:var(--font-display)] font-bold text-throne-cyan-400 mb-2">
                     The Sentinel&apos;s Counsel
                 </h2>
-                <p className="text-gray-500 text-sm">
+                <p className="font-[family-name:var(--font-inter)] text-gray-500 text-sm">
                     AI-Powered insights and strategic recommendations
                 </p>
             </div>

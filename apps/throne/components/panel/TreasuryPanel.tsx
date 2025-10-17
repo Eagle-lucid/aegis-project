@@ -15,10 +15,10 @@ export function TreasuryPanel() {
         <GlassPanel className="border-throne-emerald-500/30">
             {/* Header */}
             <div className="mb-6">
-              <h2 className="text-2xl font-display font-bold text-throne-emerald-400 mb-2">
+              <h2 className="font-[family-name:var(--font-display)] text-2xl font-bold text-throne-emerald-400 mb-2">
                   Treasury Health
               </h2>
-              <p className="text-gray-500 text-sm">
+              <p className="font-[family-name:var(--font-inter)] text-gray-500 text-sm">
                   Resource allocation and financial overview
               </p>
             </div>
@@ -26,17 +26,17 @@ export function TreasuryPanel() {
             {/* Total Treasury Display */}
             <div className="mb-8 text-center p-6 bg-throne-bg-secondary rounded-lg border border-throne-emerald-500/20">
                 <p className="text-sm text-gray-400 mb-2 font-medium">Total Treasury</p>
-                <p className="text-5xl font-display font-bold text-white mb-2">
+                <p className="text-5xl font-[family-name:var(--font-display)] font-bold text-white mb-2">
                     ${totalTreasury.toLocaleString()}
                 </p>
-                <p className="text-xs text-throne-emerald-400">
+                <p className="font-[family-name:var(--font-inter)] text-xs text-throne-emerald-400">
                     💰 Fully capitalized
                 </p>
             </div>
 
             {/* Budget Allocation Bars */}
             <div className="space-y-6">
-                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
+                <h3 className="font-[family-name:var(--font-display)] text-sm font-semibold text-gray-400 uppercase tracking-wider">
                     Budget Allocation
                 </h3>
 
