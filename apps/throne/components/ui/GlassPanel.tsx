@@ -19,6 +19,10 @@ export function GlassPanel({ children, className = '' }: GlassPanelProps) {
                 rounded-lg 
                 p-6
                 shadow-lg
+                transition-all
+                duration-300
+                hover:shadow-xl
+                hover:shadow-throne-cyan-500/5
                 ${className}
             `}
         >

@@ -27,8 +27,8 @@ export function InsightCard({ icon, title, description, severity }: InsightCardP
         <div
             className={`
                 ${severityStyles[severity]}
-                backdrop-blur-sm border rounded-lg p-4 transition-all
-                hover:scale-[1.02] cursor-pointer
+                backdrop-blur-sm border rounded-lg p-4 transition-all duration-300
+                hover:scale-[1.01] hover:shadow-lg cursor-pointer
             `}
         >
             <div className='flex items-start gap-3'>
