@@ -2,6 +2,7 @@
 'use client';
 
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface GlassLayoutProps {
     children: ReactNode;
@@ -21,9 +22,14 @@ export function GlassLayout({ children }: GlassLayoutProps) {
             </header>
 
             {/* Main Grid */}
-            <div className="max-w-7xl mx-auto space-y-6">
+            <motion.div 
+              className="max-w-7xl mx-auto space-y-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
                 {children}
-            </div>
+            </motion.div>
         </div>
     )
 }
