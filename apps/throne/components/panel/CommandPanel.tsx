@@ -1,20 +1,36 @@
+// cspell:disable
 //apps/throne/components/panels/CommandPanel.tsx
 'use client';
 
-import { GlassPanel } from "@/components/ui/GlassPanel";
 import { useState } from "react";
+import { GlassPanel } from "@/components/ui/GlassPanel";
+import { treasuryOps } from "@/lib/supabase";
 
 export function CommandPanel() {
     const [isProcessing, setIsProcessing] = useState(false);
+    const [executed, setExecuted] = useState(false);
 
-    const handleCommand = () => {
-        setIsProcessing(true);
-        // Simulate command execution
-        setTimeout(() => {
-            setIsProcessing(false);
-            // In Phase 3, this will trigger real actions
-        }, 2000);
-    };
+    const handleCommand = async () => {
+        setIsProcessing(true)
+
+        try {
+            // Execute the decree
+            await treasuryOps.optimizeBudget()
+
+            // Simulate processing time for effect
+            await new Promise(resolve => setTimeout(resolve, 1500))
+
+            setExecuted(true)
+
+            // Reset after 3 seconds
+            setTimeout(() => setExecuted(false), 3000)
+        } catch (error) {
+            console.error('Decree execution failed:', error)
+            alert('Failed to excute decree. Check console.')
+        } finally {
+            setIsProcessing(false)
+        }
+    }
     return (
         <GlassPanel className="border-throne-amber-500/30">
             {/* Header */}
@@ -57,11 +73,12 @@ export function CommandPanel() {
             {/* Decree Button */}
             <button
               onClick={handleCommand}
-              disabled={isProcessing}
+              disabled={isProcessing || executed}
               className={`
                    w-full py-4 font-[family-name:var(--font-display)]
                    font-bold text-lg rounded-lg transition-all duration-300
-                   ${isProcessing ? 
+                   ${executed ? 
+                    'bg-throne-emerald-500 cursor-default' : isProcessing ?
                     'bg-throne-amber-500/50 cursor-not-allowed' :
                     'bg-throne-amber-500 hover:bg-throne-amber-600 hover:shadow-2xl hover:shadow-throne-amber-500/40'
                    }
@@ -69,12 +86,16 @@ export function CommandPanel() {
                    transform hover:scale-[1.02] active:scale-[0.98]
                 `}
             >
-                {isProcessing ? (
+                {executed ? (
                     <span className="flex items-center justify-center gap-2">
-                        <span className="animate-spin">⚙️</span>
-                        Processing Decree...
+                        ✓ Decree Executed
                     </span>
-                ): (
+                ): isProcessing ? (
+                    <span className="flex items-center justify-center gap-2">
+                     <span className="animate-spin">⚙️</span>
+                     Processing Decree...
+                    </span>
+                ) : (
                     'DECREE: OPTIMIZE BUDGET'
                 )}
             </button>
@@ -85,5 +106,5 @@ export function CommandPanel() {
             </p>
             
         </GlassPanel>
-    )
-}
+    );
+};
