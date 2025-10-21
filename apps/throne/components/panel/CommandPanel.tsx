@@ -5,13 +5,29 @@
 import { useState } from "react";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { treasuryOps } from "@/lib/supabase";
+import { useChronicle } from "@/lib/useChronicle";
 
 export function CommandPanel() {
+    const addEntry = useChronicle((state) => state.addEntry);
     const [isProcessing, setIsProcessing] = useState(false);
     const [executed, setExecuted] = useState(false);
+    const [canExecute, setCanExecute] = useState(true);
+    const [clickAttempted, setClickAttemted] = useState(false);
 
     const handleCommand = async () => {
+        if (!canExecute) {
+            setClickAttemted(true)
+            setTimeout(() => setClickAttemted(false), 2000)
+            return
+        }
+
         setIsProcessing(true)
+
+        // Log: Decree initiated
+        addEntry({
+            type: 'sovereign',
+            message: '$5,000  budget reallocation decree initiated. Executing command...',
+        })
 
         try {
             // Execute the decree
@@ -20,12 +36,24 @@ export function CommandPanel() {
             // Simulate processing time for effect
             await new Promise(resolve => setTimeout(resolve, 1500))
 
-            setExecuted(true)
+            // Log: Success
+            addEntry({
+                type: 'sentinel',
+                message: 'Budget optimization decree executed successfully. Marketing: -$5,000 → R&D: +$5,000. Runway extended by 2 months.',
+            })
 
-            // Reset after 3 seconds
-            setTimeout(() => setExecuted(false), 3000)
+            setExecuted(true)
+            setCanExecute(false)
+
         } catch (error) {
             console.error('Decree execution failed:', error)
+
+            // Log: Failure
+            addEntry({
+                type: 'system',
+                message: 'Decree execution failed. Error logged for sovereign review.',
+            })
+
             alert('Failed to excute decree. Check console.')
         } finally {
             setIsProcessing(false)
@@ -73,32 +101,46 @@ export function CommandPanel() {
             {/* Decree Button */}
             <button
               onClick={handleCommand}
-              disabled={isProcessing || executed}
               className={`
                    w-full py-4 font-[family-name:var(--font-display)]
                    font-bold text-lg rounded-lg transition-all duration-300
                    ${executed ? 
                     'bg-throne-emerald-500 cursor-default' : isProcessing ?
                     'bg-throne-amber-500/50 cursor-not-allowed' :
+                    !canExecute ?
+                    'bg-gray-600 cursor-not-allowed' :
                     'bg-throne-amber-500 hover:bg-throne-amber-600 hover:shadow-2xl hover:shadow-throne-amber-500/40'
                    }
                    text-throne-bg-primary shadow-lg shadow-throne-amber-500/20
                    transform hover:scale-[1.02] active:scale-[0.98]
+                   ${clickAttempted ? 'animate-shake border-4 border-red-500' : ''}
+                   text-throne-bg-primary shadow-lg shadow-throne-amber-500/20
                 `}
             >
                 {executed ? (
-                    <span className="flex items-center justify-center gap-2">
-                        ✓ Decree Executed
-                    </span>
-                ): isProcessing ? (
-                    <span className="flex items-center justify-center gap-2">
-                     <span className="animate-spin">⚙️</span>
-                     Processing Decree...
-                    </span>
+                  <span className="flex items-center justify-center gap-2">
+                    ✓ Decree Executed Successfully
+                  </span>
+                ) : isProcessing ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="animate-spin">⚙️</span>
+                    Processing Decree...
+                  </span>
+                ) : !canExecute ? (
+                  <span className="flex items-center justify-center gap-2">
+                    🚫 Decree Already Executed
+                  </span>
                 ) : (
-                    'DECREE: OPTIMIZE BUDGET'
+                  'DECREE: OPTIMIZE BUDGET'
                 )}
             </button>
+
+            {/* Better feedback below button */}
+            {(clickAttempted || (!canExecute && !isProcessing)) && (
+              <p className="mt-2 text-xs text-center text-red-400">
+                ⚠️ This decree has already been executed in this session
+              </p>
+            )}
 
             {/* Authorization Notice */}
             <p className="font-[family-name:var(--font-inter)] text-xs text-center text-gray-500 mt-4">

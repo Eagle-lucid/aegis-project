@@ -1,30 +1,29 @@
 //apps/throne/components/panels/ChroniclePanel.tsx
+'use client';
+
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { ChronicleEntry } from "@/components/ui/ChronicleEntry";
+import { useChronicle } from "@/lib/useChronicle";
+import { useEffect, useRef } from "react";
 
 export function ChroniclePanel() {
-    const entries = [
-        {
-            type: 'system' as const,
-            message: 'User "Sovereign assumed the throne. Session initialized with full privileges."',
-            timestamp: '2m ago'
-        },
-        {
-            type: 'sentinel' as const,
-            message: 'Counsel provided on treasury drain rate and budget optimization opportunity. Risk assessment: Medium priority.',
-            timestamp: '1m ago',
-        },
-        {
-            type: 'sovereign' as const,
-            message: '$5,000 budget reallocation decree prepared. Awaiting sovereign authorization to execute.',
-            timestamp: '30s ago',
-        },
-        {
-            type: 'sentinel' as const,
-            message: 'Command authorization verified. Standing by for decree execution.',
-            timestamp: 'Just now', 
-        },
-    ];
+    const entries = useChronicle((state) => state.entries);
+    const initializeEntries = useChronicle((state) => state.initializeEntries)
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    // Initialize entries on client mount (Prevents hydration mismatch)
+    useEffect(() => {
+       if (entries.length === 0) {
+        initializeEntries()
+       }
+    }, [entries.length, initializeEntries]);
+
+    // Auto-scroll to bottom when new entry is added
+    useEffect(() => {
+       if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+       }
+    }, [entries]);
 
 
     return (
@@ -40,15 +39,23 @@ export function ChroniclePanel() {
             </div>
 
             {/* Chronicle Entries */}
-            <div className="space-y-1 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-throne-bg-tertiary scrollbar-track-transparent">
-                {entries.map((entry, index) => (
-                    <ChronicleEntry 
-                      key={index}
+            <div 
+              ref={scrollRef}
+              className="space-y-1 max-h-64 overflow-y-auto scroll-smooth">
+                {entries.length === 0 ? (
+                    <p className="font-[family-name:var(--font-inter)] text-gray-500 text-sm text-center py-8">
+                        Initializing chronicle...
+                    </p>
+                ) : (
+                   entries.map((entry) => (
+                    <ChronicleEntry
+                      key={entry.id}
                       type={entry.type}
                       message={entry.message}
                       timestamp={entry.timestamp}
-                    />
-                ))}
+                    />  
+                   ))
+                )}
             </div>
             
             {/* Footer Stat */}

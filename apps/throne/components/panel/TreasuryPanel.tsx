@@ -18,6 +18,7 @@ export function TreasuryPanel() {
 
     // Subscribe to real-time updates
     useEffect(() => {
+      console.log('🔔 Setting up real-time subscription...')
       const channel = supabase
       .channel('treasury-changes')
       .on(
@@ -26,19 +27,24 @@ export function TreasuryPanel() {
           event: 'UPDATE',
           schema: 'public',
           table: 'treasury',
+          filter: 'id=eq.1',
         },
         (payload) => {
+          console.log('🔔 Setting up real-time subscription...')
           setTreasury(payload.new as Treasury)
         }
       )
-      .subscribe()
+      .subscribe((status) => {
+        console.log('📡 Subscription status:', status)
+      })
 
       return () => {
+        console.log('🔌 Cleaning up subscription...')
         supabase.removeChannel(channel)
       }
     }, []);
 
-    const fetchTresury = async () => {
+    const fetchTresury = async (retries = 3): Promise<void> => {
         try {
             const { data, error } = await supabase
             .from('treasury')
@@ -50,6 +56,15 @@ export function TreasuryPanel() {
             setTreasury(data)
         } catch (error) {
             console.error('Error fetching treasury:', error)
+
+            if (retries > 0) {
+              console.log(`Network error. Retrying... (${retries} attempt left)`)
+              await new Promise(resolve => setTimeout(resolve, 2000))
+              return fetchTresury(retries -1)
+            } else {
+              // All retries failed
+              console.error('Failed to load treasury after 3 attempts')
+            }
         } finally {
             setLoading(false)
         }
