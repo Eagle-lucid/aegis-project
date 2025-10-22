@@ -35,14 +35,14 @@ export function BudgetBar({ label, amount, percentage, color }: BudgetBarProps) 
           {/* Progress Bar */}
           <div className="relative h-2 bg-throne-bg-tertiary rounded-full overflow-hidden">
             <div
-              className={`absolute inset-y-0 left-0 ${colorClasses[color]} rounded-full transition-all duration-500`}
+              className={`absolute inset-y-0 left-0 ${colorClasses[color]} rounded-full transition-all duration-700 ease-out`}
               style={{ width: `${percentage}%` }}
             />
           </div>
 
           {/* percentage */}
           <div className="flex justify-end">
-            <span className="text-sm text-gray-500">{percentage}%</span>
+            <span className="text-sm text-gray-500 transition-all duration-500">{percentage}%</span>
           </div>
         </div>
     )

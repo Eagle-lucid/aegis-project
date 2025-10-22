@@ -3,6 +3,7 @@
 'use client';
 
 import { useState } from "react";
+import { motion, AnimatePresence } from 'framer-motion';
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { treasuryOps } from "@/lib/supabase";
 import { useChronicle } from "@/lib/useChronicle";
@@ -12,14 +13,16 @@ export function CommandPanel() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [executed, setExecuted] = useState(false);
     const [canExecute, setCanExecute] = useState(true);
-    const [clickAttempted, setClickAttemted] = useState(false);
+    const [clickAttempted, setClickAttempted] = useState(false);
 
     const handleCommand = async () => {
         if (!canExecute) {
-            setClickAttemted(true)
-            setTimeout(() => setClickAttemted(false), 2000)
+            setClickAttempted(true)
+            setTimeout(() => setClickAttempted(false), 2000)
             return
         }
+        
+        if (isProcessing) return;
 
         setIsProcessing(true)
 
@@ -99,45 +102,81 @@ export function CommandPanel() {
             </div>
 
             {/* Decree Button */}
-            <button
+            
+            <motion.button
               onClick={handleCommand}
+              whileTap={{ scale: 0.97 }}
+              whileHover={!isProcessing && canExecute ? { scale: 1.02 } : {}}
+              transition={{ duration: 0.2 }}
+              aria-live="polite"
+              aria-disabled={isProcessing || executed}
               className={`
-                   w-full py-4 font-[family-name:var(--font-display)]
-                   font-bold text-lg rounded-lg transition-all duration-300
-                   ${executed ? 
-                    'bg-throne-emerald-500 cursor-default' : isProcessing ?
-                    'bg-throne-amber-500/50 cursor-not-allowed' :
-                    !canExecute ?
-                    'bg-gray-600 cursor-not-allowed' :
-                    'bg-throne-amber-500 hover:bg-throne-amber-600 hover:shadow-2xl hover:shadow-throne-amber-500/40'
-                   }
-                   text-throne-bg-primary shadow-lg shadow-throne-amber-500/20
-                   transform hover:scale-[1.02] active:scale-[0.98]
-                   ${clickAttempted ? 'animate-shake border-4 border-red-500' : ''}
-                   text-throne-bg-primary shadow-lg shadow-throne-amber-500/20
-                `}
+                w-full py-4 font-[family-name:var(--font-display)] 
+                font-bold text-base sm:text-lg rounded-lg transition-all duration-500 
+                ${
+                  executed
+                    ? 'bg-throne-emerald-500 cursor-default'
+                    : isProcessing
+                    ? 'bg-throne-amber-500/50 cursor-not-allowed'
+                    : !canExecute
+                    ? 'bg-gray-600 cursor-not-allowed'
+                    : 'bg-throne-amber-500 hover:bg-throne-amber-600 hover:shadow-2xl hover:shadow-throne-amber-500/40'
+                }
+                text-throne-bg-primary shadow-lg shadow-throne-amber-500/20
+                ${clickAttempted ? 'animate-shake border-4 border-red-500' : ''}
+              `}
             >
+              <AnimatePresence mode="wait">
                 {executed ? (
-                  <span className="flex items-center justify-center gap-2">
+                  <motion.span
+                    key="executed"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="flex items-center justify-center gap-2"
+                  >
                     ✓ Decree Executed Successfully
-                  </span>
+                  </motion.span>
                 ) : isProcessing ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <span className="animate-spin">⚙️</span>
-                    Processing Decree...
-                  </span>
+                  <motion.span
+                    key="processing"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <span className="animate-spin">⚙️</span> Processing Decree...
+                  </motion.span>
                 ) : !canExecute ? (
-                  <span className="flex items-center justify-center gap-2">
+                  <motion.span
+                    key="already"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="flex items-center justify-center gap-2"
+                  >
                     🚫 Decree Already Executed
-                  </span>
+                  </motion.span>
                 ) : (
-                  'DECREE: OPTIMIZE BUDGET'
+                  <motion.span
+                    key="ready"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    DECREE: OPTIMIZE BUDGET
+                  </motion.span>
                 )}
-            </button>
+              </AnimatePresence>
+            </motion.button>
 
             {/* Better feedback below button */}
             {(clickAttempted || (!canExecute && !isProcessing)) && (
-              <p className="mt-2 text-xs text-center text-red-400">
+              <p className="mt-2 text-xs text-center text-red-400" aria-live="assertive">
                 ⚠️ This decree has already been executed in this session
               </p>
             )}

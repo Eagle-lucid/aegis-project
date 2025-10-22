@@ -31,7 +31,7 @@ export function InsightCard({ icon, title, description, severity }: InsightCardP
                 hover:scale-[1.01] hover:shadow-lg cursor-pointer
             `}
         >
-            <div className='flex items-start gap-3'>
+            <div className='flex items-start gap-3 transition-all duration-300'>
                 {/* Icon */}
                 <div className={`${severityTextColors[severity]} text-2xl mt-1`}>
                     {icon}
