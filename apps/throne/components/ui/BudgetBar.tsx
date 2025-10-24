@@ -27,7 +27,7 @@ export function BudgetBar({ label, amount, percentage, color }: BudgetBarProps) 
           {/* Label and Amount */}
           <div className="flex items-center justify-between text-sm">
             <span className="text-gray-300 font-medium">{label}</span>
-            <span className={`font-display font-semibold ${textColorClasses[color]}`}>
+            <span className={`font-[family-name:var(--font-display)] font-semibold ${textColorClasses[color]}`}>
                 ${amount.toLocaleString()}
             </span>
           </div>
@@ -42,7 +42,7 @@ export function BudgetBar({ label, amount, percentage, color }: BudgetBarProps) 
 
           {/* percentage */}
           <div className="flex justify-end">
-            <span className="text-sm text-gray-500 transition-all duration-500">{percentage}%</span>
+            <span className="font-[family-name:var(--font-inter)] text-sm text-gray-500 transition-all duration-500">{percentage}%</span>
           </div>
         </div>
     )

@@ -1,6 +1,5 @@
 <div align="center">
-  <!-- Logo will be added on Day 12 -->
-  <!-- <img src="./public/logo.svg" alt="Project Aegis" width="120" height="120" /> -->
+  <img src="./public/logo.svg" alt="Project Aegis" width="120" height="120" />
   
   # 🦅 Project Aegis - Throne
   
@@ -16,8 +15,11 @@
   
   ---
   
-  <!-- Screenshot will be added on Day 12 -->
-  <!-- <img src="./screenshots/throne-room.png" alt="Throne Interface" width="800" /> -->
+  
+  <img src="./screenshots/throne-room-1.png" alt="Throne Interface" width="800" />
+  <img src="./screenshots/throne-room-2.png" alt="Throne Interface" width="800" />
+  <img src="./screenshots/throne-room-3.png" alt="Throne Interface" width="800" />
+  <img src="./screenshots/mobile-view.png" alt="Throne Interface" width="400" />
   
 </div>
 
@@ -409,9 +411,9 @@ The interface doesn't just show information—it tells a story. The language isn
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
+MIT License - see [LICENSE](./LICENSE) file for details.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Copyright (c) 2025 Lucid the Eagle
 
 ## 🤝 Contributing
 
