@@ -1,5 +1,4 @@
 <div align="center">
-  ** AEGIS LOGO **
   <img src="./public/logo.svg" alt="Project Aegis" width="120" height="120" />
   
   # 🦅 Project Aegis - Throne
@@ -16,11 +15,7 @@
   
   ---
   
-  **"SCREENSHOTS"**
   <img src="./screenshots/throne-room-1.png" alt="Throne Interface" width="800" />
-  <img src="./screenshots/throne-room-2.png" alt="Throne Interface" width="800" />
-  <img src="./screenshots/throne-room-3.png" alt="Throne Interface" width="800" />
-  <img src="./screenshots/mobile-view.png" alt="Throne Interface" width="400" />
   
 </div>
 
@@ -133,7 +128,7 @@ AI-powered intelligence cards (static insights in MVP)
 1. **Clone the repository**
 
 ```bash
-git clone git@github.com:Eagle-lucid/aegis-project.git
+git clone git@github.com:LucidTheEagle/aegis-project.git
 cd aegis-project
 ```
 
