@@ -1,0 +1,24 @@
+// apps/throne/components/ui/GlassPanel.tsx
+'use client';
+
+import { ReactNode } from "react";
+
+interface GlassPanelProps {
+    children: ReactNode;
+    className?: string;
+}
+
+export function GlassPanel({ children, className = '' }: GlassPanelProps) {
+    return (
+        <div
+            className={`
+                relative overflow-hidden rounded-2xl bg-white/5
+                backdrop-blur-xl border border-white/13
+                shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]
+                ${className}
+            `}
+        >
+           {children}
+        </div>
+    );
+}
