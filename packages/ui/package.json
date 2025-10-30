@@ -1,0 +1,21 @@
+{
+  "name": "@aegis/ui",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./components/index.ts",
+  "types": "./components/index.ts",
+  "scripts": {},
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "framer-motion": "^11.18.2",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.9.2"
+  }
+}
